@@ -1,0 +1,9 @@
+# Address of the blog
+ghostHost: antoinetoussaint.com/blog
+ghostPath: antoinetoussaint.com/blog
+# User
+ghostUsername: toussaint.antoine@gmail.com
+ghostEmail: toussaint.antoine@gmail.com
+# Service type is ClusterIP: we use istio for routing
+service:
+  type: ClusterIP

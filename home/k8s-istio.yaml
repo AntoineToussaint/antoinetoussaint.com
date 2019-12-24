@@ -1,0 +1,45 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: vs-homepage
+  namespace: homepage
+spec:
+  hosts:
+    - antoinetoussaint.com
+  gateways:
+    - gw-homepage.default
+  http:
+    - name: http-homepage
+      route:
+        - destination:
+            host: homepage
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: gw-homepage
+  namespace: default
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - antoinetoussaint.com
+        - "*"
+      tls:
+        httpsRedirect: true # sends 301 redirect for http requests
+    - port:
+        number: 443
+        name: https-443
+        protocol: HTTPS
+      hosts:
+        - antoinetoussaint.com
+        - "*"
+      tls:
+        mode: SIMPLE # enables HTTPS on this port
+        serverCertificate: /etc/certs/servercert.pem
+        privateKey: /etc/certs/privatekey.pem
