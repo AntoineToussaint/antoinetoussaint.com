@@ -25,11 +25,10 @@ spec:
   servers:
     - port:
         number: 80
-        name: http
+        name: http-80
         protocol: HTTP
       hosts:
         - antoinetoussaint.com
-        - "*"
       tls:
         httpsRedirect: true # sends 301 redirect for http requests
     - port:
@@ -38,8 +37,7 @@ spec:
         protocol: HTTPS
       hosts:
         - antoinetoussaint.com
-        - "*"
       tls:
-        mode: SIMPLE # enables HTTPS on this port
-        serverCertificate: /etc/certs/servercert.pem
-        privateKey: /etc/certs/privatekey.pem
+        mode: SIMPLE
+        serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
+        privateKey: /etc/istio/ingressgateway-certs/tls.key
